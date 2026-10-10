@@ -1,7 +1,25 @@
+# Dependencies
 node_modules/
+
+# Build output
 dist/
+build/
+
+# Environment files (never commit real secrets)
 .env
-uploads/
+.env.local
+.env.production
+
+# Uploads (user-uploaded files – not committed)
+server/uploads/
+
+# Logs
 *.log
+npm-debug.log*
+
+# OS files
 .DS_Store
 Thumbs.db
+
+# Vite cache
+.vite/

@@ -19,10 +19,11 @@ const app = express();
 // Security headers
 app.use(helmet());
 
-// CORS
+// CORS — allow all origins (safe for this app, no sensitive cookies)
 app.use(cors({
-  origin: process.env.CLIENT_URL || 'http://localhost:5173',
-  credentials: true,
+  origin: '*',
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
 }));
 
 // Rate limiter for auth routes
