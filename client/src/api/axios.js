@@ -1,10 +1,10 @@
 import axios from 'axios';
 
-// In production (Vercel), VITE_API_URL points to the Render backend.
-// In development, Vite proxy handles /api → localhost:5000 so baseURL = '/api'.
-const baseURL = import.meta.env.VITE_API_URL
-  ? `${import.meta.env.VITE_API_URL}/api`
-  : '/api';
+// Production backend URL — update this if your Render URL changes
+const PROD_API = 'https://edusphere-api-v51d.onrender.com/api';
+
+// In development, Vite proxy handles /api → localhost:5000
+const baseURL = import.meta.env.DEV ? '/api' : PROD_API;
 
 const api = axios.create({
   baseURL,
@@ -12,14 +12,14 @@ const api = axios.create({
   headers: { 'Content-Type': 'application/json' },
 });
 
-// Attach JWT token from localStorage
+// Attach JWT token
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem('token');
   if (token) config.headers.Authorization = `Bearer ${token}`;
   return config;
 });
 
-// Handle 401 globally
+// Handle 401
 api.interceptors.response.use(
   (res) => res,
   (err) => {
